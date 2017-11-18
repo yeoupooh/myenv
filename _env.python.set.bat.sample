@@ -1,0 +1,4 @@
+@echo off
+
+set MINICONDA=c:\Miniconda3
+set PATH=%PATH%;%MINICONDA%

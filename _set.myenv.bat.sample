@@ -1,0 +1,3 @@
+@echo off
+
+set MYENV_HOME=c:\myenv
