@@ -10,7 +10,7 @@ if "%MYENV_HOME%" == "" (
     exit /b
 )
 
-set _ROLLBACK_PATHS_BATCH_FILE=%MYENV_HOME%\_rollback.paths.bat
+set _ROLLBACK_PATHS_BATCH_FILE=%MYENV_HOME%\tmp\_rollback.paths.bat
 
 if "%_CMD%" == "" goto :help
 if "%_CMD%" == "init" goto :generate_rollback
@@ -41,7 +41,7 @@ echo Generating Rollback batch file...
     echo @echo off
     echo echo Rollbacking...
 ) > %_ROLLBACK_PATHS_BATCH_FILE%
-echo set PATH=%PATH% >> %_ROLLBACK_PATHS_BATCH_FILE%
+echo set PATH=%PATH%>> %_ROLLBACK_PATHS_BATCH_FILE%
 (
     echo echo Rollbacked.
 ) >> %_ROLLBACK_PATHS_BATCH_FILE%
@@ -62,7 +62,7 @@ call :unset_local
 exit /b
 
 :update_env
-set _ENV_FILE=%MYENV_HOME%\_env.%2.%1.bat
+set _ENV_FILE=%MYENV_HOME%\env\_env.%2.%1.bat
 if not exist %_ENV_FILE% (
     echo env file [%_ENV_FILE%] not found.
     exit /b
