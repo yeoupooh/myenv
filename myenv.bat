@@ -17,14 +17,16 @@ if "%_CMD%" == "init" goto :generate_rollback
 if "%_CMD%" == "rollback" goto :execute_rollback
 if "%_CMD%" == "set" goto :update_env %*
 if "%_CMD%" == "unset" goto :update_env %*
+if "%_CMD%" == "list" goto :list_envs %*
 goto :help
 exit /b
 
 :help
 echo %0 ^<command^> [env name]
 echo commands:
-echo    init              Generate rollback batch file.
-echo    rollback          Execute rollback batch file.
+echo    init              	Generate rollback batch file.
+echo    rollback          	Execute rollback batch file.
+echo    list              	List environments.
 echo    set ^<env name^>    Set given environment.
 echo    unset ^<env name^>  Unset given environment.
 exit /b
@@ -72,5 +74,10 @@ echo Executing %_ENV_FILE%...
 call %_ENV_FILE% %CMD%
 echo Executed.
 echo PATH=%PATH%
+call :unset_local
+exit /b
+
+:list_envs
+dir /b %MYENV_HOME%\env\_env.*.set.bat
 call :unset_local
 exit /b
