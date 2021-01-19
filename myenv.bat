@@ -69,11 +69,11 @@ if not exist %_ENV_FILE% (
     echo env file [%_ENV_FILE%] not found.
     exit /b
 )
-echo PATH=%PATH%
-echo Executing %_ENV_FILE%...
+@REM echo PATH=%PATH%
+echo Setting '%2' environment...
 call %_ENV_FILE% %CMD%
-echo Executed.
-echo PATH=%PATH%
+echo Done.
+@REM echo PATH=%PATH%
 call :unset_local
 exit /b
 
