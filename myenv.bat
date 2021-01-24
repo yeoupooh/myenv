@@ -5,7 +5,7 @@ set _SET_MYENV_FILE=_set.myenv.bat
 
 call _set.myenv.bat
 if "%MYENV_HOME%" == "" (
-    echo MYENV_HOME is not set in the %_SET_MYENV_FILE%.
+    echo [myenv] MYENV_HOME is not set in the %_SET_MYENV_FILE%.
     call :unset_local
     exit /b
 )
@@ -38,41 +38,41 @@ set _ENV_FILE=
 exit /b
 
 :generate_rollback
-echo Generating Rollback batch file...
+echo [myenv] Generating Rollback batch file...
 (
     echo @echo off
-    echo echo Rollbacking...
+    echo echo [myenv] Rollbacking...
 ) > %_ROLLBACK_PATHS_BATCH_FILE%
 echo set PATH=%PATH%>> %_ROLLBACK_PATHS_BATCH_FILE%
 (
-    echo echo Rollbacked.
+    echo echo [myenv] Rollbacked.
 ) >> %_ROLLBACK_PATHS_BATCH_FILE%
-echo Generated.
-echo PATH=%PATH%
+echo [myenv] Generated.
+echo [myenv] PATH=%PATH%
 call :unset_local
 exit /b
 
 :execute_rollback
 if not exist %_ROLLBACK_PATHS_BATCH_FILE% (
-    echo Rollback file not found.
+    echo [myenv] Rollback file not found.
     exit /b
 )
-echo PATH=%PATH%
+echo [myenv] PATH=%PATH%
 call %_ROLLBACK_PATHS_BATCH_FILE%
-echo PATH=%PATH%
+echo [myenv] PATH=%PATH%
 call :unset_local
 exit /b
 
 :update_env
 set _ENV_FILE=%MYENV_HOME%\env\_env.%2.%1.bat
 if not exist %_ENV_FILE% (
-    echo env file [%_ENV_FILE%] not found.
+    echo [myenv] env file [%_ENV_FILE%] not found.
     exit /b
 )
 @REM echo PATH=%PATH%
-echo Setting '%2' environment...
+echo [myenv] Setting '%2' environment...
 call %_ENV_FILE% %CMD%
-echo Done.
+echo [myenv] Done.
 @REM echo PATH=%PATH%
 call :unset_local
 exit /b
